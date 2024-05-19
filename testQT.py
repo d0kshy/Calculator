@@ -1,17 +1,36 @@
 import sys 
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QMainWindow, QPushButton
 
-#Create an empty app
-app = QApplication([])
+class Window(QMainWindow):
+    def __init__(self):
+        super(Window, self).__init__()
+        self.setWindowTitle("Graphs Calculator")
+        self.setGeometry(500, 500, 500, 700)
+
+        self.greetMsg = QLabel(self)
+        self.greetMsg.setText("Push the button below")
+        self.greetMsg.move(100, 100)
+        self.greetMsg.adjustSize()
+
+        
+        self.text = QLabel(self)
+        
+        self.btn = QPushButton("Button",parent=self)
+        self.btn.move(200, 200)
+        self.btn.clicked.connect(self.printText)
+
+    def printText(self):
+        self.text.setText("Text")
+        self.text.move(300, 300)
+        self.text.adjustSize()
 
 
-window = QWidget()
-window.setWindowTitle("App")
-window.setGeometry(500, 500, 500, 100)
+def application():
+    #Create an empty app
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec())
 
-
-
-
-
-window.show()
-sys.exit(app.exec())
+if __name__ == "__main__":
+    application()
